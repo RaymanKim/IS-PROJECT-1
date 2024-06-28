@@ -10,12 +10,11 @@
 </head>
 
 <body>
-    
-
+    @section('content')
     <div>
-        {{-- @include('components.homepage-paragraph') --}}
         <x-homepage/>
     </div>
+    @endsection
 </body>
 
 </html>
