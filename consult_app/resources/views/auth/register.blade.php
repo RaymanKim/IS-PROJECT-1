@@ -20,13 +20,24 @@
             </div>
 
             <div class="mt-4">
+                <x-label for="phone_number" value="{{ __('Phone Number') }}" />
+                <x-input id="phone_number" class="block mt-1 w-full" type="text" name="phone_number" :value="old('phone_number')" required autocomplete="phone_number" />
+            </div>
+
+            <div class="mt-4">
                 <x-label for="password" value="{{ __('Password') }}" />
                 <x-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="new-password" />
+                {{-- <x-input-error :messeges="$errors->get('password')" class="mt-2"/> --}}
             </div>
 
             <div class="mt-4">
                 <x-label for="password_confirmation" value="{{ __('Confirm Password') }}" />
                 <x-input id="password_confirmation" class="block mt-1 w-full" type="password" name="password_confirmation" required autocomplete="new-password" />
+            </div>
+
+            <div class="mt-4">
+                <x-label for="role" value="{{ __('Role') }}" />
+               <x-input-select id="name" class="block mt-1 w-full" type="text" name="role" :value="old('roll')" required autofocus autocomplete="role"/>
             </div>
 
             @if (Laravel\Jetstream\Jetstream::hasTermsAndPrivacyPolicyFeature())
