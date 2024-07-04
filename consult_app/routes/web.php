@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\DatabaseController;
 
 Route::get('/welcome', function () {
     return view('welcome');
@@ -53,3 +54,6 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
 });
+
+Route::get('/db-test', [DatabaseController::class, 'testConnection']);
+
