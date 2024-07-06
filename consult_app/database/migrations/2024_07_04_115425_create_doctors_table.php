@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
+ class CreateDoctorsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('officeLocation')->nullable();
             $table->string('officeName')->nullable();
             $table->string('Specialization')->nullable();
+            $table->string('license_no');
             $table->rememberToken();
             $table->string('doctorProfile_photo_path', 2048)->nullable();
             $table->timestamps();
