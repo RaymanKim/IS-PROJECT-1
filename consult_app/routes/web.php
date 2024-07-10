@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DatabaseController;
 use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\Auth\DoctorLoginController;
-
+use App\Http\Controllers\DoctorDashboardController;
 
 
 Route::get('/welcome', function () {
@@ -80,11 +80,8 @@ Route::middleware([
 });
 
 Route::middleware(['auth:doctor'])->group(function () {
-    Route::get('/doctorDashboard', function () {
-        return view('doctorDashboard');
-    })->name('doctorDashboard');
+    Route::get('/doctor/dashboard', [DoctorDashboardController::class, 'index'])->name('doctor.dashboard');
 });
-
 
 Route::get('/db-test', [DatabaseController::class, 'testConnection']);
 

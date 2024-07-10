@@ -22,7 +22,7 @@ class DoctorController extends Controller
     {
         $doctor = new Doctors();
         $doctor->doctorName = $request->input('doctorName');
-        $doctor->password = bcrypt($request->input('password'));
+        $doctor->password = ($request->input('password'));
         $doctor->doctorEmail = $request->input('doctorEmail');
         $doctor->officeLocation = $request->input('officeLocation');
         $doctor->officeName = $request->input('officeName');
@@ -46,7 +46,7 @@ class DoctorController extends Controller
     {
         $doctor = Doctors::find($id);
         $doctor->doctorName = $request->input('doctorName');
-        $doctor->password = bcrypt($request->input('password'));
+        $doctor->password =($request->input('password'));
         $doctor->doctorEmail = $request->input('doctorEmail');
         $doctor->officeLocation = $request->input('officeLocation');
         $doctor->officeName = $request->input('officeName');

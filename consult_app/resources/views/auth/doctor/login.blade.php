@@ -1,4 +1,3 @@
-<!-- resources/views/auth/doctor/login.blade.php -->
 @if(Auth::guard('doctor')->check())
     <form method="POST" action="{{ route('doctor.logout') }}">
         @csrf

@@ -15,7 +15,7 @@ class DoctorLoginController extends Controller
      */
     public function showLoginForm()
     {
-        return view('auth.doctor.login'); // Assuming you have a view for doctor login form
+        return view('auth.doctor.login');
     }
 
     /**
@@ -30,11 +30,11 @@ class DoctorLoginController extends Controller
 
         if (Auth::guard('doctor')->attempt($credentials)) {
             // Authentication passed...
-            return redirect()->intended(route('doctor.login')); // Redirect to doctor dashboard or another route
+            return redirect()->route('doctor.dashboard'); // Redirect to doctor dashboard
         }
 
         // Authentication failed...
-        return redirect()->route('doctor.login')->with('error', 'Invalid credentials'); // Redirect back with error message
+        return redirect()->route('doctor.login')->with('error', 'Invalid credentials');
     }
 
     /**
