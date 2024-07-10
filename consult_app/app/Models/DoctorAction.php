@@ -3,26 +3,18 @@
 namespace App\Models;
 
 use CreateDoctorsTable;
-use CreateUsersTable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Consultation extends Model
+class DoctorAction extends Model
 {
     use HasFactory;
-    protected $table = 'consultations';
+    protected $table = 'doctor_actions';
 
     protected $fillable = [
-        'patient_id',
         'doctor_id',
-        'booked_at',
-        'payment_status',
+        'diagnosis_act',
     ];
-    public function patient()
-    {
-        return $this->belongsTo(CreateUsersTable::class);
-    }
-
     public function doctor()
     {
         return $this->belongsTo(CreateDoctorsTable::class);

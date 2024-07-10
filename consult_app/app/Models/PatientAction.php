@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use CreatePatientActionsTable;
-use CreateUsersTable;
+// use CreateUsersTable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 

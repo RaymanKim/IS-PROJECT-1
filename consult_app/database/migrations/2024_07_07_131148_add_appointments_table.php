@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Schema;
             $table->unsignedBigInteger('patient_id');
             $table->unsignedBigInteger('doctor_id');
             $table->dateTime('booked_at');
+            $table->string('payment_status')->default('pending');
             $table->timestamps();
         });
         Schema::table('appointments', function (Blueprint $table) {

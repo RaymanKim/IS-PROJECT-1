@@ -2,6 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DatabaseController;
+use App\Http\Controllers\DoctorController;
+use App\Http\Controllers\Auth\DoctorLoginController;
+
+
 
 Route::get('/welcome', function () {
     return view('welcome');
@@ -45,6 +49,26 @@ Route::prefix('services')->group(function () {
     })->name('service3');
 });
 
+// Route::resource('/doc', DoctorController::class);
+
+// routes/web.php
+
+Route::get('doctors', 'DoctorController@index');
+Route::get('doctors/create', 'DoctorController@create');
+Route::post('doctors', 'DoctorController@store');
+Route::get('doctors/{id}', 'DoctorController@show');
+Route::get('doctors/{id}/edit', 'DoctorController@edit');
+Route::patch('doctors/{id}', 'DoctorController@update');
+Route::delete('doctors/{id}', 'DoctorController@destroy');
+Route::get('doctors/{id}/consultations', 'DoctorController@consultations');
+Route::post('doctors/consultations/{consultationId}/update-payment-status', 'DoctorController@updatePaymentStatus');
+
+Route::get('/doctor/login', [DoctorLoginController::class, 'showLoginForm'])->name('doctor.login');
+Route::post('/doctor/login', [DoctorLoginController::class, 'login'])->name('doctor.login');
+Route::post('/doctor/logout', [DoctorLoginController::class, 'logout'])->name('doctor.logout');
+
+
+
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
@@ -54,6 +78,13 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
 });
+
+Route::middleware(['auth:doctor'])->group(function () {
+    Route::get('/doctorDashboard', function () {
+        return view('doctorDashboard');
+    })->name('doctorDashboard');
+});
+
 
 Route::get('/db-test', [DatabaseController::class, 'testConnection']);
 
