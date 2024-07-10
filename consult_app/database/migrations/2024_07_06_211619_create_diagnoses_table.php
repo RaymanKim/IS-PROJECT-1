@@ -21,8 +21,8 @@ use Illuminate\Support\Facades\Schema;
             $table->timestamps();
         });
         Schema::table('diagnoses', function (Blueprint $table) {
-            $table->foreign('patient_id')->references('id')->on('users');
-            $table->foreign('doctor_id')->references('id')->on('doctors');
+            $table->foreign('patient_id')->references('user_id')->on('users');
+            $table->foreign('doctor_id')->references('doctor_id')->on('doctors');
             $table->foreign('illness_id')->references('id')->on('illness');
         });
     }

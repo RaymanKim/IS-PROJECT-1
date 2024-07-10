@@ -6,6 +6,7 @@ use CreateDoctorsTable;
 use CreateUsersTable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Consultation extends Model
 {
@@ -13,18 +14,18 @@ class Consultation extends Model
     protected $table = 'consultations';
 
     protected $fillable = [
-        'patient_id',
+        'id',
         'doctor_id',
         'booked_at',
         'payment_status',
     ];
-    public function patient()
+    public function patient(): BelongsTo
     {
-        return $this->belongsTo(CreateUsersTable::class);
+        return $this->belongsTo(User::class);
     }
 
     public function doctor()
     {
-        return $this->belongsTo(CreateDoctorsTable::class);
+        return $this->belongsTo(Doctors::class);
     }
 }

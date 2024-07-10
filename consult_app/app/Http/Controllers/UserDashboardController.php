@@ -1,26 +1,30 @@
 <?php
+// app/Http/Controllers/Patient/PatientDashboardController.php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Patient;
 
-use App\Models\Consultation;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use App\Models\Consultation;
+use App\Models\Patient;
+use App\Http\Controllers\Controller;
 
-class UserDashboardController extends Controller
+class PatientDashboardController extends Controller
 {
     public function index()
     {
-        $user = Auth::user();
-        $upcomingConsultations = Consultation::where('patient_id', $user->id)
-            ->where('scheduled_date', '>=', now())
-            ->orderBy('scheduled_date', 'asc')
+        $user = auth()->user()->user;
+
+        $upcomingConsultations = Consultation::where('user_id', $user->id)
+            ->where('booked_at', '>=', now())
+            ->orderBy('booked_at', 'asc')
             ->get();
 
-        $recentConsultations = Consultation::where('patient_id', $user->id)
-            ->where('scheduled_date', '<', now())
-            ->orderBy('scheduled_date', 'desc')
+        $recentConsultations = Consultation::where('user_id', $user->id)
+            ->where('booked_at', '<', now())
+            ->orderBy('booked_at', 'desc')
+            ->limit(5)
             ->get();
 
-        return view('patient.dashboard', compact('upcomingConsultations', 'recentConsultations'));
+        return view('patient.dashboard', compact('upcomingConsultations', 'ecentConsultations'));
     }
 }

@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Schema;
     public function up(): void
     {
         Schema::create('doctors', function (Blueprint $table) {
-            $table->id();
+            $table->id('doctor_id');
             $table->string('doctorName');
             $table->string('doctorEmail')->unique();
             $table->timestamp('doctorEmail_verified_at')->nullable();

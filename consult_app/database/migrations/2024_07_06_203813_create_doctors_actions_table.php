@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Schema;
             $table->timestamps();
         });
         Schema::table('doctors_actions', function (Blueprint $table) {
-            $table->foreign('doctor_id')->references('id')->on('doctors');
+            $table->foreign('doctor_id')->references('doctor_id')->on('doctors');
         });
     }
 
