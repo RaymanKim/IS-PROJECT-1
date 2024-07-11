@@ -72,16 +72,16 @@ class Doctors extends Authenticatable
     }
     public function consultations()
     {
-        return $this->hasMany(AddAppointmentsTable::class);
+        return $this->hasMany(Consultation::class);
     }
 
     public function diagnoses()
     {
-        return $this->hasMany(CreateDiagnosesTable::class);
+        return $this->hasMany(Diagnosis::class);
     }
 
     public function doctorActions()
     {
-        return $this->hasMany(CreateDoctorsActionsTable::class);
+        return $this->hasMany(DoctorAction::class);
     }
 }

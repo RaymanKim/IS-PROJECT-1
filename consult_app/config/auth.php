@@ -16,6 +16,10 @@ return [
             'driver' => 'session',
             'provider' => 'doctors',
         ],
+        'users' => [
+            'driver' => 'session',
+            'provider' => 'user',
+        ],
     ],
 
     'providers' => [
@@ -27,6 +31,11 @@ return [
         'doctors' => [
             'driver' => 'eloquent',
             'model' => App\Models\Doctors::class,
+        ],
+
+        'user' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\User::class,
         ],
     ],
 
@@ -42,4 +51,3 @@ return [
 
     'password_timeout' => env('AUTH_PASSWORD_TIMEOUT', 10800),
 ];
-

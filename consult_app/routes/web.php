@@ -5,6 +5,7 @@ use App\Http\Controllers\DatabaseController;
 use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\Auth\DoctorLoginController;
 use App\Http\Controllers\DoctorDashboardController;
+use App\Http\Controllers\UserDashboardController;
 
 
 Route::get('/welcome', function () {
@@ -74,14 +75,17 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified',
 ])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
+    Route::get('/dashboard', [UserDashboardController::class, 'index'])->name('dashboard');
+    return view('dashboard');
 });
 
 Route::middleware(['auth:doctor'])->group(function () {
-    Route::get('/doctor/dashboard', [DoctorDashboardController::class, 'index'])->name('doctor.dashboard');
+    Route::get('/doctor/doctorDashboard', [DoctorDashboardController::class, 'index'])->name('doctor.doctorDashboard');
 });
+
+// Route::group(['middleware' => 'auth:users'], function () {
+//     Route::get('/dashboard', [UserDashboardController::class, 'index'])->name('dashboard');
+// });
 
 Route::get('/db-test', [DatabaseController::class, 'testConnection']);
 
