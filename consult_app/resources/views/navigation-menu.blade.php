@@ -6,7 +6,7 @@
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
                     <a href="{{ route('dashboard') }}">
-                        <x-application-mark class="block h-9 w-auto" />
+                        <img src="{{ asset('build/assets/images/teledoc.ico') }}" alt="My Logo" class="max-w-20 max-h-20">
                     </a>
                 </div>
 

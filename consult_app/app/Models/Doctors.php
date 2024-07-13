@@ -13,6 +13,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Support\Facades\Hash;
 
 class Doctors extends Authenticatable
 {
@@ -21,6 +22,9 @@ class Doctors extends Authenticatable
     use HasProfilePhoto;
     use Notifiable;
     use TwoFactorAuthenticatable;
+
+    protected $table = 'doctors';
+     protected $primaryKey = 'doctor_id';
 
     /**
      * The attributes that are mass assignable.
@@ -84,4 +88,14 @@ class Doctors extends Authenticatable
     {
         return $this->hasMany(DoctorAction::class);
     }
+    public function getAuthPassword()
+    {
+        return Hash::make($this->password);
+    }
+    public function setPasswordAttribute($value)
+    {
+        $this->attributes['password'] = Hash::make($value);
+    }
 }
+
+// last function isnt necessary according to Blackbox

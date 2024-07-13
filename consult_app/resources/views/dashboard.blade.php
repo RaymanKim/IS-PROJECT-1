@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
+            {{ __('Patients Dashboard') }}
         </h2>
     </x-slot>
 
@@ -14,7 +14,7 @@
                         <div class="row justify-content-center">
                             <div class="col-md-8">
                                 <div class="card">
-                                    <div class="card-header">Dashboard</div>
+                                    <div class="card-header">Here are your consultations:</div>
 
                                     <div class="card-body">
                                         @if (session('status'))
@@ -22,26 +22,40 @@
                                                 {{ session('status') }}
                                             </div>
                                         @endif
-                                        <h2>Upcoming Consultations</h2>
-                                        @if (isset($upcomingConsultations) && count($upcomingConsultations) > 0)
 
-                                            <ul>
-                                                @foreach ($upcomingConsultations as $consultation)
-                                                    <li>{{ $consultation->booked_at }} -
-                                                        {{ $consultation->description }}</li>
-                                                @endforeach
-                                            </ul>
-                                        @endif
-                                        <h2>Recent Consultations</h2>
-                                        @if (isset($recentConsultations) && count($recentConsultations) > 0)
+                                        <div class="mb-8">
+                                            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                                                <div class="p-6 bg-white border-b border-gray-200">
+                                                    <h2 class="text-lg font-semibold mb-4">Upcoming Consultations</h2>
+                                                    @if (isset($upcomingConsultations) && count($upcomingConsultations) > 0)
+                                                        <ul>
+                                                            @foreach ($upcomingConsultations as $consultation)
+                                                                <li>{{ $consultation->booked_at }} - {{ $consultation->description }}</li>
+                                                            @endforeach
+                                                        </ul>
+                                                    @else
+                                                        <p>No upcoming consultations.</p>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                        </div>
 
-                                            <ul>
-                                                @foreach ($recentConsultations as $consultation)
-                                                    <li>{{ $consultation->booked_at }} -
-                                                        {{ $consultation->description }}</li>
-                                                @endforeach
-                                            </ul>
-                                        @endif
+                                        <div>
+                                            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                                                <div class="p-6 bg-white border-b border-gray-200">
+                                                    <h2 class="text-lg font-semibold mb-4">Recent Consultations</h2>
+                                                    @if (isset($recentConsultations) && count($recentConsultations) > 0)
+                                                        <ul>
+                                                            @foreach ($recentConsultations as $consultation)
+                                                                <li>{{ $consultation->booked_at }} - {{ $consultation->description }}</li>
+                                                            @endforeach
+                                                        </ul>
+                                                    @else
+                                                        <p>No recent consultations.</p>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

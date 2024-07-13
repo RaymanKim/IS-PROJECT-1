@@ -1,7 +1,7 @@
 <x-guest-layout>
     <x-authentication-card>
         <x-slot name="logo">
-            <x-authentication-card-logo />
+            <img src="{{ asset('build/assets/images/teledoc.ico') }}" alt="My Logo" class="max-w-40 max-h-40">
         </x-slot>
 
         <x-validation-errors class="mb-4" />

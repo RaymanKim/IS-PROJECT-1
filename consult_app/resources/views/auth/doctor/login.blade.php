@@ -1,3 +1,5 @@
+<!-- resources/views/auth/login.blade.php -->
+
 @if(Auth::guard('doctor')->check())
     <form method="POST" action="{{ route('doctor.logout') }}">
         @csrf
@@ -16,9 +18,9 @@
         </div>
 
         <div>
-            <label for="password">Password</label>
-            <input id="password" type="password" name="password" required autocomplete="current-password">
-            @error('password')
+            <label for="doctorPassword">Password</label>
+            <input id="doctorPassword" type="password" name="doctorPassword" required autocomplete="current-password">
+            @error('doctorPassword')
                 <span>{{ $message }}</span>
             @enderror
         </div>
@@ -26,5 +28,11 @@
         <div>
             <button type="submit">Login</button>
         </div>
+
+        @if(Session::has('error'))
+            <div class="alert alert-danger">
+                {{ Session::get('error') }}
+            </div>
+        @endif
     </form>
 @endif

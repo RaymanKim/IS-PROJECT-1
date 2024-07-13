@@ -2,29 +2,28 @@
 
 namespace Database\Seeders;
 
-// use App\Models\User;
 use App\Models\Doctors;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
     /**
      * Seed the application's database.
+     *
+     * @return void
      */
-    public function run(): void
+    public function run()
     {
-        //seed random users
+        // Seed random users if needed
         // User::factory(10)->create();
 
         Doctors::factory()->create([
             'doctorName' => 'Test',
             'doctorEmail' => 'test@gmail.com',
-            'doctorPassword' => 'rayman2004'
+            'doctorPassword' => Hash::make('rayman2004') // Hash the password
         ]);
-        // User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+
+        // Seed other data if necessary
     }
 }

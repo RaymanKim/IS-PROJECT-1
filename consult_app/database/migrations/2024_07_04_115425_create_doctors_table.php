@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Schema;
             $table->string('doctorName');
             $table->string('doctorEmail')->unique();
             $table->timestamp('doctorEmail_verified_at')->nullable();
-            $table->string('doctorPassword');
+            $table->string('doctorPassword', 255);
             $table->string('officeLocation')->nullable();
             $table->string('officeName')->nullable();
             $table->string('Specialization')->nullable();

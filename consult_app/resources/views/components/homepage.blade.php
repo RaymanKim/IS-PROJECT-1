@@ -17,7 +17,7 @@
           <div class="text-2xl font-bold">OVER <span class="text-yellow-400">20%</span></div>
           <div class="text-2xl font-bold">NOW <span class="text-yellow-400">Ksh. 700</span></div>
         </div>
-        <p class="mt-2 text-sm">Visit www.afyabora.co.ke for more information</p>
+        <p class="mt-2 text-sm">Where else would you find this!</p>
       </div>
     </div>
   </div>

@@ -16,10 +16,11 @@ return [
             'driver' => 'session',
             'provider' => 'doctors',
         ],
-        'users' => [
-            'driver' => 'session',
-            'provider' => 'user',
-        ],
+
+        // 'users' => [
+        //     'driver' => 'session',
+        //     'provider' => 'users',
+        // ],
     ],
 
     'providers' => [
@@ -32,14 +33,8 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\Doctors::class,
         ],
-
-        'user' => [
-            'driver' => 'eloquent',
-            'model' => App\Models\User::class,
-        ],
     ],
 
-    // Other configurations like password resets remain unchanged
     'passwords' => [
         'users' => [
             'provider' => 'users',

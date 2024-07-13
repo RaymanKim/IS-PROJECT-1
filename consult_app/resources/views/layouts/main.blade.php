@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TeleDoc</title>
     @yield('link')
-    <link rel="icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
+    <img src="{{ asset('build/assets/images/teledoc.ico') }}" alt="My Logo" class="max-w-20 max-h-20">
 </head>
 
 <body class="font-sans antialiased m-0">

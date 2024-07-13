@@ -7,7 +7,6 @@ use App\Http\Controllers\Auth\DoctorLoginController;
 use App\Http\Controllers\DoctorDashboardController;
 use App\Http\Controllers\UserDashboardController;
 
-
 Route::get('/welcome', function () {
     return view('welcome');
 })->name('welcome');
@@ -50,42 +49,37 @@ Route::prefix('services')->group(function () {
     })->name('service3');
 });
 
-// Route::resource('/doc', DoctorController::class);
-
-// routes/web.php
-
-Route::get('doctors', 'DoctorController@index');
-Route::get('doctors/create', 'DoctorController@create');
-Route::post('doctors', 'DoctorController@store');
-Route::get('doctors/{id}', 'DoctorController@show');
-Route::get('doctors/{id}/edit', 'DoctorController@edit');
-Route::patch('doctors/{id}', 'DoctorController@update');
-Route::delete('doctors/{id}', 'DoctorController@destroy');
-Route::get('doctors/{id}/consultations', 'DoctorController@consultations');
-Route::post('doctors/consultations/{consultationId}/update-payment-status', 'DoctorController@updatePaymentStatus');
+// Doctor routes
+Route::get('doctors', [DoctorController::class, 'index']);
+Route::get('doctors/create', [DoctorController::class, 'create']);
+Route::post('doctors', [DoctorController::class, 'store']);
+Route::get('doctors/{id}', [DoctorController::class, 'show']);
+Route::get('doctors/{id}/edit', [DoctorController::class, 'edit']);
+Route::patch('doctors/{id}', [DoctorController::class, 'update']);
+Route::delete('doctors/{id}', [DoctorController::class, 'destroy']);
+Route::get('doctors/{id}/consultations', [DoctorController::class, 'consultations']);
+Route::post('doctors/consultations/{consultationId}/update-payment-status', [DoctorController::class, 'updatePaymentStatus']);
 
 Route::get('/doctor/login', [DoctorLoginController::class, 'showLoginForm'])->name('doctor.login');
 Route::post('/doctor/login', [DoctorLoginController::class, 'login'])->name('doctor.login');
 Route::post('/doctor/logout', [DoctorLoginController::class, 'logout'])->name('doctor.logout');
 
+// User dashboard route with user authentication middleware
 
 
 Route::middleware([
-    'auth:sanctum',
-    config('jetstream.auth_session'),
-    'verified',
+    'auth:sanctum', // Ensure the user is authenticated using Sanctum
+    config('jetstream.auth_session'), // Jetstream authentication session middleware
+    'verified', // Ensure the user's email is verified
 ])->group(function () {
     Route::get('/dashboard', [UserDashboardController::class, 'index'])->name('dashboard');
-    return view('dashboard');
 });
 
-Route::middleware(['auth:doctor'])->group(function () {
-    Route::get('/doctor/doctorDashboard', [DoctorDashboardController::class, 'index'])->name('doctor.doctorDashboard');
+// Doctor dashboard route with doctor authentication middleware
+Route::group(['middleware' => ['auth:doctor']], function () {
+    Route::get('/doctors/doctorDashboard', [DoctorDashboardController::class, 'index'])->name('doctors.doctorDashboard');
 });
-
-// Route::group(['middleware' => 'auth:users'], function () {
-//     Route::get('/dashboard', [UserDashboardController::class, 'index'])->name('dashboard');
-// });
 
 Route::get('/db-test', [DatabaseController::class, 'testConnection']);
+
 

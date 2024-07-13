@@ -2,15 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Doctors; // Import the Doctors model
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Doctors; // Ensure this matches your model class
 
 class DoctorDashboardController extends Controller
 {
     public function index()
     {
-        $doctors = Doctors::all(); // Fetch all doctors
-
-        return view('doctor.dashboard', compact('doctors'));
+        if (Auth::guard('doctor')->check()) {
+            $doctor = Doctors::find(Auth::guard('doctor')->id());
+            return view('doctor.doctorDashboard', compact('doctor'));
+        } else {
+            return redirect()->route('doctor.login');
+        }
     }
 }
