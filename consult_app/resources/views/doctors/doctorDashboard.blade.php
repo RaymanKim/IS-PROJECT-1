@@ -1,26 +1,81 @@
-@extends('layouts.app')
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('Doctors Dashboard') }}
+        </h2>
+    </x-slot>
 
-@section('content')
-    <div class="container mx-auto px-4 py-8">
-        <div class="flex justify-center">
-            <div class="w-full md:w-2/3 lg:w-1/2">
-                <div class="bg-white shadow-lg rounded-lg overflow-hidden">
-                    <div class="bg-blue-500 text-white text-xl font-semibold p-4">Doctor Dashboard</div>
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
+                <x-wellcome />
+                <div class="bg-gray-200 bg-opacity-25 grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 p-6 lg:p-8">
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-md-8">
+                                <div class="card">
+                                    <div class="card-header">Here are patients you need to see:</div>
 
-                    <div class="p-6">
-                        <h2 class="text-2xl font-bold mb-4">Welcome, {{ $doctor->doctorName }}</h2>
-                        <div class="flex flex-col md:flex-row items-center bg-gray-100 p-4 rounded-lg">
-                            <div class="w-full md:w-1/3">
-                                <img src="{{ $doctor->doctorProfile_photo_path ?? 'default-image-path.jpg' }}" alt="Profile Photo" class="w-full h-auto rounded-full">
-                            </div>
-                            <div class="w-full md:w-2/3 mt-4 md:mt-0 md:ml-4">
-                                <div class="text-gray-700">
-                                    <p class="font-semibold"><strong>Name:</strong> {{ $doctor->doctorName }}</p>
-                                    <p class="mt-2"><strong>Email:</strong> {{ $doctor->doctorEmail }}</p>
-                                    <p class="mt-2"><strong>Office Location:</strong> {{ $doctor->officeLocation }}</p>
-                                    <p class="mt-2"><strong>Office Name:</strong> {{ $doctor->officeName }}</p>
-                                    <p class="mt-2"><strong>Specialization:</strong> {{ $doctor->Specialization }}</p>
-                                    <p class="mt-2"><strong>License No:</strong> {{ $doctor->license_no }}</p>
+                                    <div class="card-body">
+                                        @if (session('status'))
+                                            <div class="alert alert-success" role="alert">
+                                                {{ session('status') }}
+                                            </div>
+                                        @endif
+
+                                        <div class="mb-8">
+                                            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                                                <div class="p-6 bg-white border-b border-gray-200">
+                                                    <h2 class="text-lg font-semibold mb-4">Upcoming Consultations</h2>
+                                                    @if (isset($upcomingConsultations) && count($upcomingConsultations) > 0)
+                                                        <ul>
+                                                            @foreach ($upcomingConsultations as $consultation)
+                                                                <li>{{ $consultation->booked_at }} - {{ $consultation->description }}</li>
+                                                            @endforeach
+                                                        </ul>
+                                                    @else
+                                                        <p>No upcoming consultations.</p>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div>
+                                            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                                                <div class="p-6 bg-white border-b border-gray-200">
+                                                    <h2 class="text-lg font-semibold mb-4">Recent Consultations</h2>
+                                                    @if (isset($recentConsultations) && count($recentConsultations) > 0)
+                                                        <ul>
+                                                            @foreach ($recentConsultations as $consultation)
+                                                                <li>{{ $consultation->booked_at }} - {{ $consultation->description }}</li>
+                                                            @endforeach
+                                                        </ul>
+                                                    @else
+                                                        <p>No recent consultations.</p>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        {{-- <div>
+                                            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                                                <div class="p-6 bg-white border-b border-gray-200">
+                                                    <h2 class="text-lg font-semibold mb-4">Recent Consultations</h2>
+                                                    <h2>Your Consultations:</h2>
+                                                    <ul>
+                                                        @foreach($user->consultations as $consultation)
+                                                            <li>
+                                                                {{ $consultation->title }} ({{ $consultation->created_at->format('Y-m-d') }})
+                                                                <ul>
+                                                                    <li>Doctors: {{ $consultation->users()->wherePivot('role', 'doctor')->count() }}</li>
+                                                                </ul>
+                                                            </li>
+                                                        @endforeach
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div> --}}
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -29,4 +84,4 @@
             </div>
         </div>
     </div>
-@endsection
+</x-app-layout>

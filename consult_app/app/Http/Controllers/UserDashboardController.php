@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Consultation;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 
 class UserDashboardController extends Controller
 {
@@ -19,6 +20,7 @@ class UserDashboardController extends Controller
             // dd($patient); // Uncomment for debugging
 
             // Example: Fetch upcoming consultations for the patient
+
             $upcomingConsultations = Consultation::where('patient_id', $patient->id)
                 ->where('booked_at', '>=', now())
                 ->orderBy('booked_at', 'asc')
@@ -34,7 +36,14 @@ class UserDashboardController extends Controller
             return view('dashboard', compact('upcomingConsultations', 'recentConsultations'));
         }
 
+
+
         // User is not authenticated, redirect to login
         return redirect()->route('login');
+    }
+
+    public function checkuser()
+    {
+        return view('patient.dashboard')->with('user', Auth::user());
     }
 }

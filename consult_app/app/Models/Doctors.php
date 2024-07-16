@@ -44,10 +44,10 @@ class Doctors extends Authenticatable
         'doctorPassword' => 'hashed',
     ];
 
-    public function consultations()
-    {
-        return $this->hasMany(Consultation::class);
-    }
+    // public function consultations()
+    // {
+    //     return $this->hasMany(Consultation::class);
+    // }
 
     public function diagnoses()
     {

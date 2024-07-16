@@ -4,12 +4,15 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use App\Models\PatientAction;
 
 class User extends Authenticatable
 {
@@ -65,8 +68,13 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
-    public function consultations(): HasMany
-    {
-        return $this->hasMany(Consultation::class);
-    }
+    // public function consultations(): BelongsToMany
+    // {
+    //     return $this->hasMany(Consultation::class)->withPivot('role') ->withTimestamps();
+    // }
+    // public function actions(): HasMany
+    // {
+    //     return $this->hasMany(PatientAction::class);
+    // }
+
 }

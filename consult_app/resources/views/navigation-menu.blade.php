@@ -5,15 +5,18 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
-                    <a href="{{ route('dashboard') }}">
-                        <img src="{{ asset('build/assets/images/teledoc.ico') }}" alt="My Logo" class="max-w-20 max-h-20">
+                    <a href="{{ route('welcome') }}">
+                        <img src="{{ asset('build/assets/images/teledoc.ico') }}" alt="My Logo" class="max-w-100 max-h-100">
                     </a>
                 </div>
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
+                    <x-nav-link href="{{ route('home') }}" :active="request()->routeIs('home')">
                         {{ __('Dashboard') }}
+                    </x-nav-link>
+                    <x-nav-link href="{{ route('welcome') }}" :active="request()->routeIs('welcome')">
+                        {{ __('Home') }}
                     </x-nav-link>
                 </div>
             </div>

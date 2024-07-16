@@ -41,7 +41,7 @@
                     <div class="hidden lg:flex lg:items-center space-x-4 list-none">
                         @auth
                             <li>
-                                <a href="{{ url('/dashboard') }}" class="px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] no-underline">Dashboard</a>
+                                <a href="{{ url('home') }}" class="px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] no-underline">Dashboard</a>
                             </li>
                         @else
                             <li>

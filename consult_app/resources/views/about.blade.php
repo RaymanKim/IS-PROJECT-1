@@ -1,8 +1,22 @@
+<!DOCTYPE html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 @extends('layouts.main')
-@extends('layouts.LinkScript')
-@section('content')
-    <h3>We are the kenya national health group</h3>
-@stop
-@section('sidebar')
-    @parent 
-@show 
+
+<head>
+    @include('layouts.LinkScript')
+    @section('header')
+        @parent
+    @show
+</head>
+
+<body>
+    @section('content')
+        @extends('layouts.LinkScript')
+    @section('content')
+        @yield('linkA')
+
+    @endsection
+@endsection
+</body>
+
+</html>

@@ -56,6 +56,25 @@
                                                 </div>
                                             </div>
                                         </div>
+
+                                        {{-- <div>
+                                            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                                                <div class="p-6 bg-white border-b border-gray-200">
+                                                    <h2 class="text-lg font-semibold mb-4">Recent Consultations</h2>
+                                                    <h2>Your Consultations:</h2>
+                                                    <ul>
+                                                        @foreach($user->consultations as $consultation)
+                                                            <li>
+                                                                {{ $consultation->title }} ({{ $consultation->created_at->format('Y-m-d') }})
+                                                                <ul>
+                                                                    <li>Doctors: {{ $consultation->users()->wherePivot('role', 'doctor')->count() }}</li>
+                                                                </ul>
+                                                            </li>
+                                                        @endforeach
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div> --}}
                                     </div>
                                 </div>
                             </div>

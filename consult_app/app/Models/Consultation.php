@@ -6,7 +6,8 @@ use CreateDoctorsTable;
 use CreateUsersTable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Consultation extends Model
 {
@@ -14,18 +15,18 @@ class Consultation extends Model
     protected $table = 'appointments';
 
     protected $fillable = [
-        'patient_id',
-        'doctor_id',
-        'booked_at',
+        'title',
+        'description',
+        'action_data',
         'payment_status',
+        'patient_id',
     ];
-    public function patient(): BelongsTo
+    public function consultations(): BelongsToMany
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsToMany(Consultation::class)->withPivot('role') ->withTimestamps();
     }
-
-    public function doctor(): BelongsTo
+    public function actions(): HasMany
     {
-        return $this->belongsTo(Doctors::class);
+        return $this->hasMany(PatientAction::class);
     }
 }

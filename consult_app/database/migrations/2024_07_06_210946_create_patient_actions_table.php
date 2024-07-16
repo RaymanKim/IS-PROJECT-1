@@ -12,13 +12,18 @@ use Illuminate\Support\Facades\Schema;
     public function up(): void
     {
         Schema::create('patient_actions', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->unsignedBigInteger('patient_id');
-            $table->string('diagnosis_act');
+            $table->id();
+            $table->unsignedBigInteger('user_id');
+            // $table->unsignedBigInteger('consultation_id');
+            $table->foreign('user_id')->references('id')->on('users');
+            // $table->foreign('consultation_id')->references('id')->on('appointments')->onDelete('cascade');
+            $table->string('action_type');
+            $table->text('action_data')->nullable();
+            // $table->timestamp('created_at')->nullable();
             $table->timestamps();
         });
         Schema::table('patient_actions', function (Blueprint $table) {
-            $table->foreign('patient_id')->references('id')->on('users');
+
         });
     }
 

@@ -14,15 +14,20 @@ use Illuminate\Support\Facades\Schema;
     {
         Schema::create('appointments', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('title');
+            $table->text('description')->nullable();
             $table->unsignedBigInteger('patient_id');
-            $table->unsignedBigInteger('doctor_id');
+            $table->foreign('patient_id')->references('id')->on('users');
+            // $table->unsignedBigInteger('doctor_id');
             $table->dateTime('booked_at');
+            $table->string('status')->default('open');
+            $table->text('action_data')->nullable();
             $table->string('payment_status')->default('pending');
             $table->timestamps();
         });
         Schema::table('appointments', function (Blueprint $table) {
-            $table->foreign('patient_id')->references('id')->on('users');
-            $table->foreign('doctor_id')->references('doctor_id')->on('doctors');
+
+            // $table->foreign('doctor_id')->references('doctor_id')->on('doctors');
         });
     }
 
