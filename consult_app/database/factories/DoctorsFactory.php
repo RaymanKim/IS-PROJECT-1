@@ -4,7 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Doctors;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Facades\Hash; // Import Hash facade
+// use Illuminate\Support\Facades\Hash; // Import Hash facade
 
 class DoctorsFactory extends Factory
 {
@@ -25,7 +25,7 @@ class DoctorsFactory extends Factory
         return [
             'doctorName' => $this->faker->name,
             'doctorEmail' => $this->faker->unique()->safeEmail,
-            'doctorPassword' => Hash::make('password'), // Hashing the password 'password'
+            'doctorPassword' => bcrypt('password'), // Hashing the password 'password'
             'license_no' => $this->faker->randomNumber(6)
         ];
     }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
- class CreateDoctorsTable extends Migration
+class CreateDoctorsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Schema;
             $table->string('doctorEmail')->unique();
             $table->timestamp('doctorEmail_verified_at')->nullable();
             $table->string('doctorPassword', 255);
+            $table->string('role')->default(1);
             $table->string('officeLocation')->nullable();
             $table->string('officeName')->nullable();
             $table->string('Specialization')->nullable();
@@ -34,7 +35,8 @@ use Illuminate\Support\Facades\Schema;
 
         Schema::create('doctor_sessions', function (Blueprint $table) {
             $table->string('id')->primary();
-            $table->foreignId('doctors_id')->nullable()->index();
+            $table->unsignedBigInteger('doctor_id')->nullable()->index();
+            $table->foreign('doctor_id')->references('doctor_id')->on('doctors');
             $table->string('ip_address', 45)->nullable();
             $table->text('doctor_agent')->nullable();
             $table->longText('payload');
@@ -47,12 +49,8 @@ use Illuminate\Support\Facades\Schema;
      */
     public function down(): void
     {
-        Schema::dropIfExists('doctors');
-        Schema::dropIfExists('doctor_password_reset_tokens');
         Schema::dropIfExists('doctor_sessions');
+        Schema::dropIfExists('doctor_password_reset_tokens');
+        Schema::dropIfExists('doctors');
     }
 };
-
-
-
-

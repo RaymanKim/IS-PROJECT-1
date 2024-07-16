@@ -6,6 +6,7 @@ use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\Auth\DoctorLoginController;
 use App\Http\Controllers\DoctorDashboardController;
 use App\Http\Controllers\UserDashboardController;
+use App\Http\Controllers\HomeController;
 
 Route::get('/welcome', function () {
     return view('welcome');
@@ -50,23 +51,17 @@ Route::prefix('services')->group(function () {
 });
 
 // Doctor routes
-Route::get('doctors', [DoctorController::class, 'index']);
-Route::get('doctors/create', [DoctorController::class, 'create']);
-Route::post('doctors', [DoctorController::class, 'store']);
-Route::get('doctors/{id}', [DoctorController::class, 'show']);
-Route::get('doctors/{id}/edit', [DoctorController::class, 'edit']);
-Route::patch('doctors/{id}', [DoctorController::class, 'update']);
-Route::delete('doctors/{id}', [DoctorController::class, 'destroy']);
-Route::get('doctors/{id}/consultations', [DoctorController::class, 'consultations']);
-Route::post('doctors/consultations/{consultationId}/update-payment-status', [DoctorController::class, 'updatePaymentStatus']);
-
-Route::get('/doctor/login', [DoctorLoginController::class, 'showLoginForm'])->name('doctor.login');
-Route::post('/doctor/login', [DoctorLoginController::class, 'login'])->name('doctor.login');
-Route::post('/doctor/logout', [DoctorLoginController::class, 'logout'])->name('doctor.logout');
+Route::get('doctors', [DoctorController::class, 'index'])->name('doctors.index');
+Route::get('doctors/create', [DoctorController::class, 'create'])->name('doctors.create');
+Route::post('doctors', [DoctorController::class, 'store'])->name('doctors.store');
+Route::get('doctors/{id}', [DoctorController::class, 'show'])->name('doctors.show');
+Route::get('doctors/{id}/edit', [DoctorController::class, 'edit'])->name('doctors.edit');
+Route::patch('doctors/{id}', [DoctorController::class, 'update'])->name('doctors.update');
+Route::delete('doctors/{id}', [DoctorController::class, 'destroy'])->name('doctors.destroy');
+Route::get('doctors/{id}/consultations', [DoctorController::class, 'consultations'])->name('doctors.consultations');
+Route::post('doctors/consultations/{consultationId}/update-payment-status', [DoctorController::class, 'updatePaymentStatus'])->name('consultations.updatePaymentStatus');
 
 // User dashboard route with user authentication middleware
-
-
 Route::middleware([
     'auth:sanctum', // Ensure the user is authenticated using Sanctum
     config('jetstream.auth_session'), // Jetstream authentication session middleware
@@ -76,10 +71,17 @@ Route::middleware([
 });
 
 // Doctor dashboard route with doctor authentication middleware
-Route::group(['middleware' => ['auth:doctor']], function () {
-    Route::get('/doctors/doctorDashboard', [DoctorDashboardController::class, 'index'])->name('doctors.doctorDashboard');
+Route::prefix('doctor')->group(function () {
+    Route::get('/login', [DoctorLoginController::class, 'showLoginForm'])->name('doctor.login');
+    Route::post('/login', [DoctorLoginController::class, 'login'])->name('doctor.login');
+    Route::post('/logout', [DoctorLoginController::class, 'logout'])->name('doctor.logout');
+
+    Route::middleware('auth:doctor')->group(function () {
+        Route::get('/dashboard', [DoctorDashboardController::class, 'index'])->name('doctors.doctorDashboard');
+    });
 });
 
-Route::get('/db-test', [DatabaseController::class, 'testConnection']);
+Route::get('/db-test', [DatabaseController::class, 'testConnection'])->name('db.test');
 
-
+Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::post('/adddoctor', [HomeController::class, 'adddoctor'])->name('adddoctor');

@@ -16,11 +16,6 @@ return [
             'driver' => 'session',
             'provider' => 'doctors',
         ],
-
-        // 'users' => [
-        //     'driver' => 'session',
-        //     'provider' => 'users',
-        // ],
     ],
 
     'providers' => [

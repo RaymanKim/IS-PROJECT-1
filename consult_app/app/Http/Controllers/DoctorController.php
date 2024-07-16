@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash; // Import Hash facade
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Doctors;
 use App\Models\Consultation;
 
@@ -24,7 +25,7 @@ class DoctorController extends Controller
     {
         $request->validate([
             'doctorName' => 'required|string',
-            'password' => 'required|string|min:8', // Example validation for password
+            'password' => 'required|string|min:8',
             'doctorEmail' => 'required|email|unique:doctors,doctorEmail',
             'officeLocation' => 'required|string',
             'officeName' => 'required|string',
@@ -97,7 +98,7 @@ class DoctorController extends Controller
     public function updatePaymentStatus(Request $request, $consultationId)
     {
         $request->validate([
-            'payment_status' => 'required|string|in:pending,completed', // Example validation for payment status
+            'payment_status' => 'required|string|in:pending,completed',
         ]);
 
         $consultation = Consultation::findOrFail($consultationId);
@@ -106,9 +107,36 @@ class DoctorController extends Controller
 
         return redirect()->back()->with('success', 'Payment status updated successfully');
     }
+
+    public function showLoginForm()
+    {
+        return view('auth.doctor-login'); // Ensure the view path is correct
+    }
+
+    public function login(Request $request)
+    {
+        $credentials = $request->only('doctorEmail', 'doctorPassword');
+
+        if (Auth::guard('doctor')->attempt(['doctorEmail' => $credentials['doctorEmail'], 'password' => $credentials['doctorPassword']])) {
+            return redirect()->route('doctors.doctorDashboard');
+        }
+
+        return redirect()->back()->with('error', 'Invalid credentials');
+    }
+
+    public function logout()
+    {
+        Auth::guard('doctor')->logout();
+        return redirect()->route('doctor.login');
+    }
+
     public function doctorDashboard()
-{
-    // Logic to display the doctor dashboard
-    return view('doctors.doctorDashboard'); // or whatever view you're using
-}
+    {
+        if (Auth::guard('doctor')->check()) {
+            $doctor = Auth::guard('doctor')->user();
+            return view('doctors.doctordashboard', compact('doctor'));
+        } else {
+            return redirect()->route('doctor.login');
+        }
+    }
 }

@@ -5,8 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TeleDoc</title>
-    @yield('link')
-    <img src="{{ asset('build/assets/images/teledoc.ico') }}" alt="My Logo" class="max-w-20 max-h-20">
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 </head>
 
 <body class="font-sans antialiased m-0">
@@ -16,7 +15,7 @@
                 <div class="container mx-auto flex justify-between items-center px-4 lg:px-0">
 
                     <div class="flex items-center space-x-2">
-                        <img src="{{ asset('build/assets/images/TeleDoc.png') }}" alt="#" class="max-w-20 max-h-20">
+                        <img src="{{ asset('build/assets/images/TeleDoc.png') }}" alt="TeleDoc Logo" class="max-w-20 max-h-20">
                         <a href="{{ route('welcome') }}" class="text-lg font-semibold text-black ml-2 no-underline">TeleDoc</a>
                     </div>
 
@@ -63,7 +62,7 @@
                             </li>
                         @else
                             <li>
-                                <a href="{{ route('doctor.login') }}" class="px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] no-underline">Doctor Login</a>
+                                {{-- <a href="{{ route('doctor.login') }}" class="px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] no-underline">Doctor Login</a> --}}
                             </li>
                         @endauth
                     </div>
@@ -82,6 +81,7 @@
         </main>
 
         <footer class="py-16 text-center text-sm text-black">
+            <!-- Footer content here -->
         </footer>
     </div>
 </body>

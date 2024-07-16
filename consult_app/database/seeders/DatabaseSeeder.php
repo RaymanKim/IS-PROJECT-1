@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Doctors;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\Hash;
+// use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -21,7 +21,7 @@ class DatabaseSeeder extends Seeder
         Doctors::factory()->create([
             'doctorName' => 'Test',
             'doctorEmail' => 'test@gmail.com',
-            'doctorPassword' => Hash::make('rayman2004') // Hash the password
+            'doctorPassword' => bcrypt('rayman2004') // Hash the password
         ]);
 
         // Seed other data if necessary

@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Models\Doctors; // Ensure this matches your model class
+use App\Models\Doctors;
 
 class DoctorDashboardController extends Controller
 {
@@ -12,7 +12,7 @@ class DoctorDashboardController extends Controller
     {
         if (Auth::guard('doctor')->check()) {
             $doctor = Doctors::find(Auth::guard('doctor')->id());
-            return view('doctor.doctorDashboard', compact('doctor'));
+            return view('doctors.doctordashboard', compact('doctor')); // Corrected view path
         } else {
             return redirect()->route('doctor.login');
         }

@@ -2,11 +2,6 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
-
-use AddAppointmentsTable;
-use CreateDiagnosesTable;
-use CreateDoctorsActionsTable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -17,20 +12,12 @@ use Illuminate\Support\Facades\Hash;
 
 class Doctors extends Authenticatable
 {
-    use HasApiTokens;
-    use HasFactory;
-    use HasProfilePhoto;
-    use Notifiable;
-    use TwoFactorAuthenticatable;
+    use HasApiTokens, HasFactory, HasProfilePhoto, Notifiable, TwoFactorAuthenticatable;
 
     protected $table = 'doctors';
-     protected $primaryKey = 'doctor_id';
+    protected $primaryKey = 'doctor_id';
+    protected $guard = 'doctor';
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
     protected $fillable = [
         'doctorName',
         'doctorPassword',
@@ -41,11 +28,6 @@ class Doctors extends Authenticatable
         'license_no',
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
     protected $hidden = [
         'doctorPassword',
         'remember_token',
@@ -53,27 +35,15 @@ class Doctors extends Authenticatable
         'two_factor_secret',
     ];
 
-    /**
-     * The accessors to append to the model's array form.
-     *
-     * @var array<int, string>
-     */
     protected $appends = [
         'profile_photo_url',
     ];
 
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
-    protected function casts(): array
-    {
-        return [
-            'doctorEmail_verified_at' => 'datetime',
-            'doctorPassword' => 'hashed',
-        ];
-    }
+    protected $casts = [
+        'doctorEmail_verified_at' => 'datetime',
+        'doctorPassword' => 'hashed',
+    ];
+
     public function consultations()
     {
         return $this->hasMany(Consultation::class);
@@ -88,14 +58,16 @@ class Doctors extends Authenticatable
     {
         return $this->hasMany(DoctorAction::class);
     }
+
     public function getAuthPassword()
     {
-        return Hash::make($this->password);
+        return $this->doctorPassword; // Ensure this matches the password column name
     }
+
     public function setPasswordAttribute($value)
     {
-        $this->attributes['password'] = Hash::make($value);
+        $this->attributes['doctorPassword'] = Hash::make($value);
     }
 }
 
-// last function isnt necessary according to Blackbox
+
